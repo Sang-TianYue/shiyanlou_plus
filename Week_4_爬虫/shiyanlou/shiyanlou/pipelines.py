@@ -26,6 +26,7 @@ class ShiyanlouPipeline(object):
            #     students = item['students']
             #    )
         #self.session.add(course)
+        # 当课程人数少于1000时，不保存
         if item['students'] < 1000:
             raise DropItem('Course students less than 1000.')
         else:
