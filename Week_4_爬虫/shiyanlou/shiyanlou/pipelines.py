@@ -11,10 +11,15 @@ from shiyanlou.models import Course, engine
 
 class ShiyanlouPipeline(object):
     def process_item(self, item, spider):
+        '''
+        经过parse处理的item被传到这里，
+        这里的代码作用于每一个item对象
+        这个方法必须要返回一个item对象
+        '''
         item['students'] = int(item['students'])
 
         #self.session.add(Course(**item))
-        #course = Course(
+        # item = Course(
          #       name = item['name'],
           #      description = item['description'],
           #      type = item['type'],
@@ -28,9 +33,15 @@ class ShiyanlouPipeline(object):
         return item
 
     def open_spider(self, spider):
+        '''
+        当爬虫被开启的时候调用
+        '''
         Session = sessionmaker(bind=engine)
         self.session = Session()
 
     def close_spider(self, spider):
+        '''
+        当爬虫被关闭的时候调用
+        '''
         self.session.commit()
         self.session.close()
