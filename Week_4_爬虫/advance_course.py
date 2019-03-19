@@ -27,7 +27,8 @@ class  CourseFollowSpider(scrapy.Spider):
             f.write(course)
             f.write('\n')
             f.close()
-
+        
         for url in response.xpath('//div[@class="sidebox-body course-content"]/a/@href').extract():
             yield scrapy.Request(url=response.urljoin(url), callback=self.parse)
+            # 打一个log获取相关url信息
             self.log("url:{}".format(response.urljoin(url)))
